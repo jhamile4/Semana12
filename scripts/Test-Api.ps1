@@ -16,10 +16,8 @@ $base = $BaseUrl.TrimEnd('/')
 $mode = if ($Cloud) { 'nube' } else { 'local' }
 $reportDir = Join-Path $repoRoot 'artifacts'
 New-Item -ItemType Directory -Path $reportDir -Force | Out-Null
-# Primero comprueba que Swagger y el documento esten accesibles.
 $swagger = Invoke-WebRequest -Uri "$base/" -UseBasicParsing -TimeoutSec 120
 if ($swagger.StatusCode -ne 200 -or $swagger.Content -notmatch 'swagger-ui') { throw 'No se encontro Swagger en la raiz.' }
-# El HTML solo no demuestra que Swagger funcione: validar tambien JavaScript y CSS.
 $assetMatches = [regex]::Matches($swagger.Content, '<(?:script|link)\b[^>]*\b(?:src|href)="([^"]+\.(?:js|css)(?:\?[^"\s]*)?)"')
 foreach ($assetMatch in $assetMatches) {
     $assetUri = [Uri]::new([Uri]"$base/", $assetMatch.Groups[1].Value)

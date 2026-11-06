@@ -1,4 +1,3 @@
-# Blueprint para la API. La base PostgreSQL se crea por separado en Neon.
 services:
   - type: web
     name: taller-mecanico

@@ -1,4 +1,3 @@
-// Genera una colección reproducible. Ejecutar desde la raíz: node scripts/Build-Postman.mjs
 import fs from 'node:fs';
 fs.mkdirSync('postman', { recursive: true });
 const items = [];
@@ -72,7 +71,6 @@ const collection = {info:{name:'Semana 12 Gestión de Taller Mecánico',schema:'
     "}"
   ]}}],item:items};
 fs.writeFileSync('postman/TallerMecanico.postman_collection.json',JSON.stringify(collection,null,2)+'\n');
-// Matriz legible para el plan y las capturas, derivada de las mismas solicitudes.
 fs.mkdirSync('docs',{recursive:true});
 fs.writeFileSync('docs/MATRIZ-PRUEBAS.md','# Matriz de solicitudes Postman\n\nCada caso indica método, ruta y código esperado. Ejecutar en orden con Collection Runner.\n\n'+items.map(i=>{
  const code=i.event[0].script.exec[0].match(/HTTP (\d+)/)[1];

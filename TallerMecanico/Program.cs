@@ -2,7 +2,6 @@ using Microsoft.EntityFrameworkCore;
 using TallerMecanico.Data;
 
 var builder = WebApplication.CreateBuilder(args);
-// El proveedor de configuración lee ConnectionStrings__DefaultConnection del entorno.
 var connection = builder.Configuration.GetConnectionString("DefaultConnection")
     ?? builder.Configuration["DATABASE_URL"];
 if (string.IsNullOrWhiteSpace(connection))
@@ -30,13 +29,10 @@ builder.Services.AddCors(options => options.AddPolicy("Frontend", policy =>
     policy.WithOrigins(origins).AllowAnyHeader().AllowAnyMethod()));
 var app = builder.Build();
 app.UseExceptionHandler();
-// Render termina HTTPS en su proxy. El contenedor escucha HTTP internamente.
-// En el perfil local HTTP no hay certificado/puerto HTTPS que redirigir.
 if (app.Environment.IsDevelopment() && builder.Configuration["LocalDatabase:Enabled"] != "true")
     app.UseHttpsRedirection();
 app.UseRouting();
 app.UseCors("Frontend");
-// Evita reutilizar HTML o scripts de Swagger guardados durante un despliegue.
 app.Use(async (context, next) =>
 {
     var path = context.Request.Path.Value ?? string.Empty;
@@ -52,9 +48,7 @@ app.Use(async (context, next) =>
     }
     await next();
 });
-// Swagger se publica también en producción por requisito del laboratorio.
 app.UseSwagger();
-// Ruta alternativa con recursos propios para recuperar la interfaz sin cache previa.
 app.UseSwaggerUI(options =>
 {
     options.DocumentTitle = "TallerMecanicoDb - API de Taller Mecanico";

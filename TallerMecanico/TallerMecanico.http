@@ -1,25 +1,25 @@
 @TallerMecanico_HostAddress = http://localhost:5080
 
-### Clientes
+###
 GET {{TallerMecanico_HostAddress}}/api/clientes
 Accept: application/json
 
-### Buscar clientes
+###
 GET {{TallerMecanico_HostAddress}}/api/clientes?buscar=Jorge
 Accept: application/json
 
-### Vehiculos
+###
 GET {{TallerMecanico_HostAddress}}/api/vehiculos
 Accept: application/json
 
-### Filtro por marca
+###
 GET {{TallerMecanico_HostAddress}}/api/vehiculos?marca=Toyota
 Accept: application/json
 
-### Ruta anidada
+###
 GET {{TallerMecanico_HostAddress}}/api/clientes/1/vehiculos
 Accept: application/json
 
-### Recurso inexistente
+###
 GET {{TallerMecanico_HostAddress}}/api/vehiculos/2147483647
 Accept: application/json

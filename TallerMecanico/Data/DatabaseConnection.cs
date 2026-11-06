@@ -4,7 +4,6 @@ namespace TallerMecanico.Data;
 
 public static class DatabaseConnection
 {
-    // Neon entrega una URI; Npgsql utiliza una cadena de conexion ADO.NET.
     public static string Normalize(string value)
     {
         var raw = value.Trim();
@@ -41,7 +40,6 @@ public static class DatabaseConnection
         }
         catch (ArgumentException)
         {
-            // No incluir la URI ni la excepcion interna: contienen credenciales.
             throw new InvalidOperationException("Conexion invalida. Use la URI postgresql:// de Neon o una cadena ADO.NET en ConnectionStrings__DefaultConnection.");
         }
     }

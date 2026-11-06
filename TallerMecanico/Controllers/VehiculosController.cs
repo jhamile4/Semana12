@@ -45,7 +45,6 @@ public class VehiculosController(TallerContext context) : ControllerBase
             return BadRequest("El cliente indicado no existe.");
         if (await context.Vehiculos.AnyAsync(v => v.Placa == vehiculo.Placa))
             return Conflict("Ya existe un vehiculo con esa placa.");
-        // Solo se usa la FK; evita insertar un cliente recibido como objeto anidado.
         vehiculo.Cliente = null;
         context.Vehiculos.Add(vehiculo);
         try { await context.SaveChangesAsync(); }
